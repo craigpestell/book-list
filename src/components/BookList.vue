@@ -30,6 +30,9 @@
         @loadPage="pageChangeHandle"
       />
     </div>
+    <div v-else-if="!init">
+      No results found.
+    </div>
   </div>
 </template>
 
@@ -53,6 +56,7 @@ export default {
       resultSize: 0,
       pageCount: 0,
       currentPage: 1,
+      init: true
     };
   },
   components: {
@@ -64,6 +68,7 @@ export default {
       await this.pageChangeHandle(1);
     },
     async pageChangeHandle(value) {
+      this.init = false;
       const term = document.getElementById("term").value;
       if (!term) {
         return;
