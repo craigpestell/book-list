@@ -78,18 +78,24 @@ export default {
         default:
           this.currentPage = value;
       }
-      const { data } = await axios.get(
-        `${this.$options.static.apiUrl}${term}?page=${this.currentPage}`
-      );
-      this.books = data.list;
-      this.resultSize = data.total;
-      this.pageCount = Math.ceil(
-        this.resultSize / this.$options.static.visibleItemsPerPageCount
-      );
-      // Give each book an id.
-      this.books.forEach((item, i) => {
-        item.id = i + 1;
-      });
+      try {
+        const { data } = await axios.get(
+          `${this.$options.static.apiUrl}${term}?page=${this.currentPage}`
+        );
+        this.books = data.list;
+        this.resultSize = data.total;
+        this.pageCount = Math.ceil(
+          this.resultSize / this.$options.static.visibleItemsPerPageCount
+        );
+        // Give each book an id.
+        this.books.forEach((item, i) => {
+          item.id = i + 1;
+        });
+      } catch(err){
+        this.books = [];
+        this.resultSize = 0;
+        this.pageCount = 0;
+      }
     },
   },
 };
