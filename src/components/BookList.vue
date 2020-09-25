@@ -68,7 +68,6 @@ export default {
       await this.pageChangeHandle(1);
     },
     async pageChangeHandle(value) {
-      this.init = false;
       const term = document.getElementById("term").value;
       if (!term) {
         return;
@@ -101,6 +100,8 @@ export default {
         this.resultSize = 0;
         this.pageCount = 0;
       }
+      this.init = false;
+
     },
   },
 };
